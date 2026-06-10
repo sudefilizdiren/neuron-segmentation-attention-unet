@@ -32,10 +32,10 @@ def predict(model_path, image_path):
     model = build_model("vanilla", DEVICE)
 
     checkpoint = torch.load(
-        model_path,
-        map_location=DEVICE
+    model_path,
+    map_location=DEVICE,
+    weights_only=False
     )
-
     model.load_state_dict(checkpoint["model_state"])
 
     model.eval()
