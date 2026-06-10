@@ -86,6 +86,7 @@ class NeuronPatchDataset(Dataset):
 
         self.image = raw[0].astype(np.float32)
         self.mask  = raw[1].astype(np.float32)
+        self.mask = (self.mask > 0).astype(np.float32)
 
         if self.mask.max() > 1:
             self.mask = (self.mask > 127).astype(np.float32)
