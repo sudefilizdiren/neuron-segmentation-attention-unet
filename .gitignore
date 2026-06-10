@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+
+checkpoints/
+results/
+
+*.tif
+*.tiff
+
+.ipynb_checkpoints/
