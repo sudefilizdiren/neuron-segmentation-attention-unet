@@ -29,7 +29,7 @@ def load_image(path):
 
 def predict(model_path, image_path):
 
-    model = build_model("vanilla", DEVICE)
+    model = build_model("pretrained", DEVICE)
 
     checkpoint = torch.load(
     model_path,
