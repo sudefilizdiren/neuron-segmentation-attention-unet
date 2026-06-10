@@ -181,7 +181,8 @@ def train(args):
     criterion = get_loss(args.loss)
     optimizer = Adam(model.parameters(), lr=args.lr, weight_decay=1e-5)
     scheduler = ReduceLROnPlateau(
-        optimizer, mode="max", factor=0.5, patience=10, verbose=True
+    optimizer, mode="max", factor=0.5, patience=10
+)
     )
 
     # ---- Training Loop ----
