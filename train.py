@@ -32,12 +32,10 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 # Local imports
-import sys
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-from data.dataset import NeuronPatchDataset, get_train_transforms, get_val_transforms
-from models.attention_unet import build_model
-from utils.losses import get_loss
-from utils.metrics import compute_all_metrics
+from dataset import NeuronPatchDataset, get_train_transforms, get_val_transforms
+from attention_unet import build_model
+from losses import get_loss
+from metrics import compute_all_metrics
 
 
 # ---------------------------------------------------------------------------
