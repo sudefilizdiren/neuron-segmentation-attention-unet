@@ -46,7 +46,7 @@ def get_train_transforms(patch_size: int = 128) -> A.Compose:
             p=0.6
         ),
         A.GaussianBlur(blur_limit=(3, 5), p=0.3),
-        A.GaussNoise(var_limit=(5.0, 30.0), p=0.3),
+        A.GaussNoise(std_range=(0.03, 0.1), p=0.3),
         A.Normalize(mean=0.0, std=1.0),
         ToTensorV2(),
     ])

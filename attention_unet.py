@@ -159,7 +159,7 @@ class AttentionUNet(nn.Module):
         d2 = self.dec2(d3, e2)
         d1 = self.dec1(d2, e1)
 
-        return torch.sigmoid(self.out_conv(d1))
+        return self.out_conv(d1)
 
 
 # ---------------------------------------------------------------------------

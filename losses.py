@@ -13,22 +13,18 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-class DiceLoss(nn.Module):
-    """
-    Soft Dice Loss — directly optimizes the Dice/F1 coefficient.
-    Robust to class imbalance since it normalises by foreground area.
-    """
-
-    def __init__(self, smooth: float = 1.0):
+class BCEDiceLoss(nn.Module):
+    def __init__(self, alpha=0.5, smooth=1.0, pos_weight=None):
         super().__init__()
-        self.smooth = smooth
+        self.alpha = alpha
+        pw = torch.tensor([pos_weight]) if pos_weight else None
+        self.bce = nn.BCEWithLogitsLoss(pos_weight=pw)
+        self.dice = DiceLoss(smooth=smooth)
 
-    def forward(self, pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
-        pred   = pred.contiguous().view(-1)
-        target = target.contiguous().view(-1)
-        intersection = (pred * target).sum()
-        dice = (2.0 * intersection + self.smooth) / (pred.sum() + target.sum() + self.smooth)
-        return 1.0 - dice
+    def forward(self, pred, target):
+        bce_loss = self.bce(pred, target)
+        dice_loss = self.dice(torch.sigmoid(pred), target)
+        return self.alpha * bce_loss + (1 - self.alpha) * dice_loss
 
 
 class BCEDiceLoss(nn.Module):
